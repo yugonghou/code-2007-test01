@@ -1,0 +1,2 @@
+vue serve .\Button.vue  运行命令
+vue serve .\father.vue 

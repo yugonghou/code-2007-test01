@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <h1 v-color="color.redColor">测试自定义指令</h1>
+      <h1 v-color="color.greenColor">测试自定义指令</h1>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    Vue.directive( 'color',{
+      inserted(el, bind) {
+          el.style.color = bind.value;
+      }
+    })
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            color: {
+              redColor: "red",
+              greenColor: "green"
+          }
+        }
+    })
+
+      // 修改数据
+  vm.msg = 'Hello'
+  // DOM 还没有更新
+  Vue.nextTick(function () {
+    // DOM 更新了
+    console.log('DOM 更新了');
+  })
+
+  // 作为一个 Promise 使用 (2.1.0 起新增，详见接下来的提示)
+  Vue.nextTick()
+    .then(function () {
+      // DOM 更新了
+      console.log('// DOM 更新了 = 00');
+    })
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>抽离组件的模板定义</h2>
+    <!-- 以书写方式来看 可以分为4个步骤 -->
+    <div id="app">
+        <!-- 使用组件  04 -->
+      <my-button></my-button>
+      <my-button></my-button>
+      <my-button></my-button>
+    </div>
+</body>
+<script src="./vue.js"></script>
+
+<!-- 定义的 btn 模板  01 -->
+<template id="btn">
+        <button @click="count += 1">加1-{{count}}</button>
+</template>
+
+<script>
+    // 定义组件  02 
+    const Button = {
+       template: '#btn',
+       data (){
+           return {
+              count: 0
+           }
+       },
+       methods: {},  // 自定义的事件
+       watch: {},   // z侦听属性
+       computeds:{},  // 计算属性
+       mounted() {},  // 生命周期的钩子函数
+    }
+    // 全局注册组件  03
+    Vue.component('MyButton', Button)
+
+    const vm = new Vue({
+        el: '#app',
+        data: {}
+    })
+</script>
+</html>

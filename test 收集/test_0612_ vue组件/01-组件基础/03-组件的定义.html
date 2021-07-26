@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>以全局组件为例，抽离组件定义</h2>
+    <div id="app">
+       <my-button></my-button>
+       <my-button></my-button>
+       <my-button></my-button>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    // 定义组件  ···········
+    const Button = {
+        template: `<button @click="count += 1">加1 - {{count}}</button>`,
+        data () {
+            return {
+                count: 0
+            }
+        },
+        methods: {}, // 自定义事件
+        computed: {}, // 计算属性
+        watch: {},   // 侦听属性
+        mounted() {}, // 生命周期的钩子函数
+    }
+    // 全局注册组件
+    Vue.component('MyButton', Button)  //   ``````````
+
+    var vm = new Vue({
+        el: '#app',
+        data: {}
+    })
+</script>
+</html>

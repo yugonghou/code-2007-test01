@@ -1,0 +1,23 @@
+<template>
+    <div>
+        <h1 v-color="color.redColor"></h1>
+        <h1 v-color="color.greenColor"></h1>
+    </div>
+</template>
+<script>
+Vue.directive('color',{
+    inserted(el,bind) {
+        el.style.color = bind.value
+    }
+})
+export default {
+    data () {
+      return {
+          color: {
+              redColor: "red",
+              greenColor: "green"
+          }
+      }
+    }
+}
+</script>

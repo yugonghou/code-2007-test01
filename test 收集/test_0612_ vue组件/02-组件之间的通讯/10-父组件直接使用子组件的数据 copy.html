@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>父组件直接使用子组件的数据</h2>
+    <div id="app">
+      <my-father></my-father>
+    </div>
+</body>
+<!-- <template id="son">
+    <div>
+        孩子
+        <button @click="onClick1">点击孩子</button>
+    </div>
+</template> -->
+<template id="father">
+    <div>
+        父亲
+        <button @click="onClick2">点击父亲</button>
+        <!-- 在定义父组件的地方 ，添加一个ref的属性,对应的属性值可以随意命名 -->
+        <my-son ref="mayun"></my-son>
+    </div>
+</template>
+<script src="./vue.js"></script>
+<script type="module">
+      import sonTen from './sonten.vue'
+</script>
+<script>
+    // const Son = {
+    //     template: '#son',
+    //     data () {
+    //         return {
+    //             msg: 'hello child'
+    //         }
+    //     },
+    //     methods: {
+    //         onClick1 () {
+    //             console.log('调用子组件的方法 我还是个孩子');
+    //         }
+    //     }
+
+    // }
+    const Father = {
+        template: '#father',
+        components: {
+            MySon : sonTen
+        },
+        mounted() {
+            // 父组件可以通过 ref 得到子组件的实例  this.$refs.定义ref属性对应属性值.子组件定义的属性
+            console.log(this.$refs.mayun.msg)
+
+        },
+        methods: {
+            onClick2 () {
+                alert(this.$refs.mayun.msg)
+                this.$refs.mayun.onClick1()   // this.$refs.定义ref属性对应属性值.子组件定义的方法
+                console.log('点击父组件 触发的事件')
+                console.log(this);
+                console.log(this.$refs);
+                console.log(this.$refs.mayu);
+            }
+        }
+    }
+    const vm = new Vue({
+        el: "#app",
+        components: {
+          MyFather : Father
+        },
+        data: {}
+    })
+</script>
+</html>

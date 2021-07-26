@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>子组件直接使用父组件的数据</h2>
+    <div id="app">
+      <my-father></my-father>
+    </div>
+</body>
+<template id="son">
+    <div>
+        <!-- html 使用 $parent.属性 -->
+        孩子--{{ $parent.msg }}
+        <button @click="onClick2">子组件-点击</button>
+    </div>
+</template>
+<template id="father">
+    <div>
+        父亲
+        <button @click="onClick">父组件-点击</button>
+        <my-son></my-son>
+    </div>
+</template>
+<script src="./vue.js"></script>
+<script>
+    const Son = {
+        template: '#son',
+        mounted() {
+            console.log(this.$parent.msg)    // js使用  可以挂载 mounted 上   ，通过 this.$parent.属性
+            this.$parent.onClick
+        },
+        methods: {
+            onClick2 () {
+                this.$parent.onClick()    // 在定义子组件的方法时  可以直接 调用  通过  this.$parent.父组件方法名（）  来使用  父组件的方法
+                console.log('子组件点击触发的方法');
+                console.log(this.$parent);
+            }
+        }
+    }
+    const Father = {
+        template: '#father',
+        components: {
+            MySon : Son
+        },
+        data () {
+            return {
+                msg: 'hello parent'
+            }
+        },
+        methods: {
+            onClick () {
+                console.log(565, '父组件的方法');
+            }
+        }
+
+    }
+    const vm = new Vue({
+        el: "#app",
+        components: {
+          MyFather : Father
+        },
+        data: {}
+    })
+</script>
+</html>

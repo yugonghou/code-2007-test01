@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>什么是父子组件</h2>
+    <div id="app">
+        <!-- 04 在app-div  中使用 父组件  -->
+       <my-father></my-father>
+    </div>
+</body>
+<script src="./vue.js"></script>
+
+<!-- 01 定义模板 -->
+<template id="son">
+    <div>孩子</div>
+</template>
+<template id="father">
+    <div>
+        父亲
+        <!--  04 在父组件模板中  使用子组件 -->
+        <my-son></my-son>   
+    </div>
+</template>
+
+<script>
+    
+    // 02 定义组件
+    const Son = {
+        template: '#son',
+    }
+    const Father = {
+        template: '#father',
+        components: {       // 03 在父组件 内  局部注册 子组件   
+            MySon: Son
+        }
+    }
+    
+    const vm = new Vue({
+        el: '#app',
+        components: {       //  03 在  app vue实例中  局部注册 父组件
+          MyFather: Father   
+        },
+        data: {}
+    })
+</script>
+</html>

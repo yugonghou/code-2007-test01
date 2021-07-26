@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>子组件传值给父组件</h2>
+    <div id="app">
+       <my-father></my-father>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<template id="son">
+    <div>子组件
+        <!-- 在子组件的某个事件中 通过 this.$emit('在父组件中自定义的事件名'，参数) 传递数据 -->
+        <button @click="sendData">传递数据</button>
+    </div>
+</template>
+<template id="father">
+    <div>父组件
+        <!-- 在父组件调用子组件的地方，绑定一个自定义的事件，该事件的定义由父组件负责 -->
+        <!-- 参数即为子组件传递给父组件的值 -->
+      <my-son @getsondata="getsondataFn"></my-son>
+    </div>
+</template>
+<script>
+    const Son = {
+        template: '#son',
+        methods: {    //  在子组件的 methods 中  定义 sendData 函数，  getsondataFn 是 在父组件中自定义的事件名 ，500 就是要传递的参数
+            sendData () {
+                this.$emit('getsondata', 500)
+            }
+        }
+
+    }
+    const Father = {
+        template: '#father',
+        components: {
+            MySon : Son
+        },
+        methods: {    // 在父组件的methods  中定义getsondataFn 函数 ，参数哦 val 即为 传递的值
+            getsondataFn (val) {
+              console.log(val);
+              alert(val)
+            }
+        }
+    }
+
+  var vm = new Vue({
+      el: '#app',
+      components:{
+          MyFather: Father
+      },
+      data: {}
+  })
+</script>
+</html>

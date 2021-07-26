@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>全局组件</h2>
+    <div id="app">
+      <my-button></my-button>
+      <my-button></my-button>
+      <my-button></my-button>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    // 全局注册组件
+    // 在 new Vue 实例之前注册
+    // 定义组件的名称可以写成 kebab-Case（连接符）  ····my-button
+    // 定义组件的名称可以写成 PascalCase (驼峰式)  ····MyButton
+    Vue.component('my-button',{
+        // 页面的模板   ··· 组件的结构  ······ html
+        template: `<button @click="count +=1 ">加1-{{count}}</button>`,
+        // 初始化数据   ····· 必须是一个函数  返回一个对象
+        data () {
+            return {
+                count: 0
+            }
+        },
+        methods: {},  // 自定义事件
+        computed: {},   // 计算属性
+        watch: {},      // 侦听属性
+        mounted() {},   // 生命周期钩子函数
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+
+        }
+    })
+</script>
+</html>

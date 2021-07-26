@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>父传子</h2>
+    <div id="app">
+      <my-father></my-father>
+    </div>
+</body>
+<script src="./vue.js"></script>
+
+<template id="son">
+    <div>孩子
+        <!-- 在子组件的模板中 使用 自定义的属性 获取值   组件传值并渲染 -->
+        <div>{{money}}</div>
+        <div>{{que}}</div>
+    </div>
+</template>
+<template id="father">
+    <div>
+        父亲
+        <!-- 在父子组件调用子组件的地方添加一个自定义属性，属性值就是父组件传给子组件的的值 -->
+        <!-- 如果需要传递的值是一个变量、numbet类型或者是boolean类型，则需要使用绑定属性 -->
+        <!-- money 就是属性 ， 1000 就是属性值 -->
+        <my-son :money="1000" :que="que" :obj="obj"></my-son>
+    </div>
+</template>
+<script>
+  const Son = {
+      template: '#son',
+    //   在子组件定义的地方  添加一个 props
+    //   1. props 的值可以是一个数组，数组的元素就是自定义的属性
+    //   props:['money','que']
+    //   2. props 的值可以是一个对象，对象的key值 为 自定义的属性， 对象的value值 为数据类型
+    // props: {
+    //      money: Number,
+    //      que: String
+    //  }
+    //   3. props 的值可以是一个对象，对象的key值 为 自定义的属性， 对象的value值 为一个对象，其中value值 包含
+    //      type---数据类型   
+    //      required--- 是不是必须传递的，并不是必须写的
+    //      default----默认值（如果默认值是一个 对象或者是数组 ，需要写成一个函数 返回对象数组
+     props: {
+         money: {
+             type:Number,
+             required: true,
+             default: 100
+         },
+         que: {
+             type: String,
+             default: '问了吗'
+         },
+         obj: {
+             type: Object,
+            //  如果默认值是对象是和数组  default  是函数  ，返回对象与数组
+             default () {
+                 return {
+                     a: 1000
+                 }
+             }
+         }
+     }
+  }
+  const Father = {
+      template: '#father',
+      components: {
+          MySon: Son
+      },
+      data () {
+          return {
+              que: '够了吗',  // 如果父组件传递的是变量 ，需要在定义父组件的 data 中  定义变量的 值
+              obj: {   
+                  a: 1
+              }
+          }
+      }
+  }
+
+  const vm = new Vue({
+      el: '#app',
+      components:{
+        MyFather: Father
+      },
+      data:{}
+  })
+</script>
+</html>
