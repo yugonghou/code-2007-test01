@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 把多个值放在一个数组中，然后调用数组的 includes 方法
+    var x = 'abc'
+    // longhand
+    if (x === 'abc' || x === 'def' || x === 'gki' || x === 'jkl') {
+       console.log('111111');
+    } else {
+      console.log('22222222');
+    }
+    // shorthand
+    if (['abc', 'def', 'ghi', 'jkl'].includes(x)) {
+       console.log('333333');
+    }
+  </script>
+</body>
+</html>

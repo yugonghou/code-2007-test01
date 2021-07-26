@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 当我们创建了新变量， 有时候想要检查引用的变量是不是为非 null 或 undefined
+    // javaScript 确实有一个很好的快捷方式来实现这种检查
+    
+    // Longhand
+    let test1 = null
+    if (test1 !== null || test1 !== undefined || test1 !== '') {
+          let test2 = test1
+    }
+    // Shorthand
+    let test2 = test1 || ''
+    console.log(test1);
+    console.log(test2);
+  </script>
+</body>
+</html>
